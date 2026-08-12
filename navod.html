@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Návod - Identifikácia pravidla triedenia</title>
+    <style>
+        :root {
+            --primary-dark: #005f73;    /* Tmavá petrolejová */
+            --primary-mid: #0a9396;     /* Modrozelená */
+            --primary-light: #94d2bd;   /* Svetlá mätová */
+            --bg-color: #f0f4f4;
+            --text-color: #264653;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: var(--bg-color);
+        }
+
+        .paper {
+            background: white;
+            padding: 40px 60px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 95, 115, 0.1);
+            border-top: 8px solid var(--primary-dark);
+        }
+
+        h1 {
+            color: var(--primary-dark);
+            text-align: center;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 15px;
+            text-transform: uppercase;
+            font-size: 24px;
+            letter-spacing: 1px;
+        }
+
+        .step {
+            margin-bottom: 45px;
+            page-break-inside: avoid;
+        }
+
+        .step-title {
+            font-weight: bold;
+            font-size: 19px;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .step-title span {
+            background: var(--primary-mid);
+            color: white;
+            border-radius: 8px; /* Jemne zaoblený štvorec namiesto kruhu */
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-size: 16px;
+        }
+
+        .instruction-text {
+            background: #fdfdfd;
+            padding: 15px 20px;
+            border-left: 5px solid var(--primary-mid);
+            margin-bottom: 15px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.02);
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: var(--primary-dark);
+            background: #e9f5f5;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        a {
+            color: var(--primary-mid);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .img-container {
+            text-align: center;
+            margin: 20px 0;
+            border: 2px solid #eee;
+            background: #fff;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .img-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .img-caption {
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--primary-mid);
+            border-top: 1px solid var(--primary-light);
+            padding-top: 15px;
+        }
+
+        .btn-print {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn-print:hover {
+            background-color: var(--primary-mid);
+        }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .paper { box-shadow: none; border-radius: 0; padding: 20px; width: 100%; }
+            .no-print { display: none; }
+            .step { margin-bottom: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="paper">
+    <h1>Návod: Identifikácia chýbajúceho pravidla triedenia</h1>
+
+    <!-- KROK 1 -->
+    <div class="step">
+        <div class="step-title"><span>1</span> Krok 1 → Získanie ID zásielky</div>
+        <div class="instruction-text">
+            Otvoríme si modul <span class="highlight">Zásielky</span>. Podľa čísla si vyfiltrujeme hľadaný balík. 
+            Zaujíma nás hodnota zo stĺpca <span class="highlight">ShipmentPackageContainer_ID</span>.
+        </div>
+        <div class="img-container">
+            <img src="Obrazok1.png" alt="Ukážka modulu Zásielky">
+            <div class="img-caption">Obrázok 1: Vyhľadanie ID zásielky v systéme</div>
+        </div>
+    </div>
+
+    <!-- KROK 2 -->
+    <div class="step">
+        <div class="step-title"><span>2</span> Krok 2 → Report z chyby</div>
+        <div class="instruction-text">
+            Použijeme modul <span class="highlight">Administrace systému</span>, záložka <b>SQL Errors</b>. 
+            Do objektu zafiltrujeme získanú hodnotu <span class="highlight">ShipmentPackageContainer_ID</span>. 
+            Kontrolujeme, že procedúra je <span class="highlight">dbo.Unloading_LocationForPackage_GET</span>. 
+            Taktiež skontrolujeme presný čas vzniku chyby.
+        </div>
+        <div class="img-container">
+            <img src="Obrazok2.png" alt="Ukážka SQL Errors">
+            <div class="img-caption">Obrázok 2: Identifikácia správneho SQL logu</div>
+        </div>
+    </div>
+
+    <!-- KROK 3 -->
+    <div class="step">
+        <div class="step-title"><span>3</span> Krok 3 → Text pre aplikáciu</div>
+        <div class="instruction-text">
+            Po dohľadaní správneho riadku si skopírujeme <b>celý text</b> zo stĺpčeka <span class="highlight">Poznámka</span>. Tento text obsahuje kompletné parametre pre analýzu.
+        </div>
+    </div>
+
+    <!-- KROK 4 -->
+    <div class="step">
+        <div class="step-title"><span>4</span> Krok 4 → Získanie ID pre triedenie</div>
+        <div class="instruction-text">
+            Otvoríme si v prehliadači aplikáciu:<br>
+            <a href="https://triedenie-vykladka-quftfvvcufxaffr2ansmzg.streamlit.app/">https://triedenie-vykladka-quftfvvcufxaffr2ansmzg.streamlit.app/</a><br><br>
+            Do poľa <b>"Vložte chybovú správu"</b> vložíme skopírovaný text a potvrdíme (<b>CTRL+ENTER</b>). 
+            Získame informácie o <span class="highlight">ID sorting type</span>, type triedenia a prípadne navrhnutej lokácii.
+        </div>
+        <div class="img-container">
+            <img src="Obrazok3.png" alt="Ukážka aplikácie">
+            <div class="img-caption">Obrázok 3: Analýza údajov v Streamlit aplikácii</div>
+        </div>
+    </div>
+
+    <!-- KROK 5 -->
+    <div class="step">
+        <div class="step-title"><span>5</span> Krok 5 → Dohľadanie druhu triedenia</div>
+        <div class="instruction-text">
+            V číselníku <span class="highlight">LL872</span> vyhľadáme riadok, kde sa <span class="highlight">Klíč</span> zhoduje so získaným ID. 
+            Týmto zistíme konkrétne chýbajúce pravidlo, ktoré je potrebné nastaviť.
+        </div>
+        <div class="img-container">
+            <img src="Obrazok4.png" alt="Ukážka číselníka LL872">
+            <div class="img-caption">Obrázok 4: Priradenie ID ku konkrétnemu pravidlu v LL872</div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Dokument vytvorený pre interné potreby Alza.cz | Oddelenie Logistiky | 2026
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 30px; margin-bottom: 50px;" class="no-print">
+    <button class="btn-print" onclick="window.print()">🖨️ Vytlačiť návod (PDF)</button>
+</div>
+
+</body>
+</html>
