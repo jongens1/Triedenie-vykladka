@@ -68,3 +68,8 @@ st.sidebar.markdown("""
     - `UNLOADING` = Výkladkové triedenie.
 3. **@LocationSortingSuperType_ID**: V prípade nadradeného pravidla ukáže nadradené ID
 """)
+url_navodu = "https://jongens1.github.io/Triedenie-vykladka/navod.html"
+
+st.sidebar.link_button("📖 Otvoriť návod", url_navodu)
+
+st.sidebar.caption("Návod sa otvorí v novom okne prehliadača.")
