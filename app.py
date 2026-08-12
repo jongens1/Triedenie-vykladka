@@ -38,7 +38,7 @@ if input_text:
                 st.write(f"Typ: {utilized_sort_type}")
 
         with col2:
-            st.write(f"📍 **Lokalita:** {location_name}")
+            st.write(f"📍 **Lokácia:** {location_name}")
 
         # 3. Logika pre SuperType (ak je to výkladka alebo ak existuje)
         st.divider()
@@ -66,5 +66,5 @@ st.sidebar.markdown("""
 2. **@UtilizedSortType**: 
     - `RAMP` = Expedičné triedenie.
     - `UNLOADING` = Výkladkové triedenie.
-3. **@LocationSortingSuperType_ID**: Zobrazí sa prioritne pri výkladke, určuje logiku zoskupovania.
+3. **@LocationSortingSuperType_ID**: V prípade nadradeného pravidla ukáže nadradené ID
 """)
